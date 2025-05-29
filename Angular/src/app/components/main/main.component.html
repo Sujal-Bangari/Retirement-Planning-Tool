@@ -1,0 +1,72 @@
+<body>
+    <nav class="navbar">
+        <h1>Retirement Planner</h1>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      </nav>
+      
+
+      
+    <div class="dashboard-container">
+        <header>
+            <h1>Welcome, {{ firstName }} {{ lastName }}!</h1>
+        </header>
+       
+        <div class="profile-card">
+            <h2>{{ firstName }} {{ lastName }}</h2>
+            <p class="email">{{ email }}</p>
+            <p class="info"><strong>Gender:</strong> {{ gender }}</p>
+            <p class="info"><strong>Age:</strong> {{ age }}</p>
+            <p class="info"><strong>Profile ID:</strong> {{ pId }}</p>
+        </div>
+        <div class="goal-card">
+            
+        
+            <div *ngIf="goals; else noGoal">
+            <h2>Your Retirement Goal</h2>
+                <p class="info"><strong>Current Age:</strong> {{ goals.currentAge }}</p>
+                <p class="info"><strong>Retirement Age:</strong> {{ goals.retirementAge }}</p>
+                <p class="info"><strong>Initial Current Savings:</strong> ₹{{ goals.currentSavings }}</p>
+                <p class="info"><strong>Target Savings:</strong> ₹{{ goals.targetSavings }}</p>
+                <p class="info"><strong>Monthly Contribution Needed:</strong> ₹{{ goals.monthlyContribution }}</p>
+                <button class="btn" (click)="openInvestmentModal()">Invest</button>
+                <button class="btn" (click)="openProgressModal()">View Progress</button> <!-- ✅ Progress Button -->
+            </div>
+        </div>
+            <ng-template #noGoal>
+                <p>You have no goals yet!</p>
+                <button class="btn" (click)="openModal()">Add Goal</button>
+            </ng-template>
+        </div>
+        <div class="modal" [class.show]="modalOpen">
+            <div class="modal-content">
+                <span class="close" (click)="closeModal()">&times;</span>
+                <app-add-goal [pId]="pId" (goalAdded)="handleGoalAdded($event)"></app-add-goal>
+            </div>
+        </div>
+        <!-- <div class="modal" [class.show]="investmentModalOpen">
+            <div class="modal-content">
+                <span class="close" (click)="closeInvestmentModal()">&times;</span>
+                <app-contribute *ngIf="goals?.gId" [gId]="goals.gId" (investment)="handleInvestment($event)" (investmentAdded)="progress.updateProgress()"></app-contribute>
+            </div>
+        </div> -->
+        <div class="modal" [class.show]="progressModalOpen">
+            <div class="modal-content">
+              <span class="close" (click)="closeProgressModal()">&times;</span>
+              <app-progress #progress *ngIf="goals?.gId" [gId]="goals.gId" [targetSavings]="goals.targetSavings"></app-progress> <!-- ✅  Pass gId & Target Savings -->
+            </div>
+        </div>
+        <div class="modal" [class.show]="investmentModalOpen">
+            <div class="modal-content">
+                <span class="close" (click)="closeInvestmentModal()">&times;</span>
+                <app-contribute *ngIf="goals?.gId" [gId]="goals.gId" [currentSavings]="goals.currentSavings"  [targetSavings]="goals.targetSavings" [monthlyContribution]="goals.monthlyContribution" (investment)="handleInvestment($event)" (investment)="progress.updateProgress()"></app-contribute>
+            </div>
+        </div>
+          <footer class="footer">
+            <p>© 2025 Retirement Planner | All Rights Reserved</p>
+          </footer>
+                
+          
+</body>
+
+
+
