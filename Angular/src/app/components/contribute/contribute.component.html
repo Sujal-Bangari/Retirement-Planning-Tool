@@ -1,0 +1,27 @@
+<div class="investment-container">
+    <h2>Make an Investment</h2>
+    <form (submit)="submitInvestment()">
+        <label>Year:</label>
+        <input type="number" [(ngModel)]="year" name="year" required readonly>
+
+        <!-- <label>Month Number:</label>
+        <input type="number" [(ngModel)]="monthNumber" name="monthNumber" required> -->
+        <label>Month:</label>
+        <select [(ngModel)]="monthNumber" name="monthNumber" required> <!-- ✅ Dropdown for months -->
+            <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
+        </select>
+
+        <label>Investment Amount:</label>
+        <input type="number" [(ngModel)]="investmentAmount" name="investmentAmount" required [max]="maxInvestment" min="1">
+        <p *ngIf="investmentAmount > maxInvestment" class="error">
+             Investment amount cannot be greater than ₹{{ maxInvestment }}.
+        </p>
+        
+        <!-- <button type="submit" [disabled]="investmentAmount > maxInvestment">Submit Investment</button> -->
+        <!-- <button type="submit" [disabled]="maxInvestment">Submit Investment</button> -->
+        <button type="submit" [disabled]="investmentAmount !== undefined && maxInvestment !== undefined && investmentAmount > maxInvestment">
+            Submit Investment
+        </button>
+    </form>
+</div>
+
