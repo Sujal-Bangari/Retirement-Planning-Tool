@@ -1,0 +1,26 @@
+<div class="add-goal-container">
+    <h2>Add Your Retirement Goal</h2>
+    <form (submit)="submitGoal()">
+        <label>Current Age:</label>
+        <input type="number" [(ngModel)]="currentAge" [ngModelOptions]="{standalone: true}" required>
+
+        <label>Retirement Age:</label>
+        <input type="number" [(ngModel)]="retirementAge" [ngModelOptions]="{standalone: true}" required (input)="validateInputs()">
+        <p *ngIf="ageValidate">{{ageValidate}}</p>
+
+        <label>Current Savings:</label>
+        <input type="number" [(ngModel)]="currentSavings" [ngModelOptions]="{standalone: true}" required >
+
+        <label>Target Savings:</label>
+        <input type="number" [(ngModel)]="targetSavings" [ngModelOptions]="{standalone: true}" required (input)="calculateMonthlyContribution()" (input)="validateInputs()">
+        <p *ngIf="money">{{money}}</p>
+
+        <label>Required Monthly Contribution:</label>
+        <input type="number" [(ngModel)]="monthlyContribution" [ngModelOptions]="{standalone: true}" readonly>
+
+        <button type="submit" 
+          [disabled]="currentAge >= retirementAge || currentSavings > targetSavings">
+          Save Goal
+        </button>
+    </form>
+</div>
