@@ -1,0 +1,24 @@
+<body>
+
+    <form (submit)="onSubmit()">
+        <div class="container">
+        <p class="heading">LOGIN</p>
+        <div class="box">
+            <p>Email</p>
+            <div>
+                <input type="email" name="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" required placeholder="Enter your email">
+            </div>
+        </div>
+        <div class="box">
+            <p>Password</p>
+            <div>
+                <input type="password" name="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" required placeholder="Password">
+            </div>
+        </div>
+        <button class="btn">Login</button>
+        <div class="box">
+            <p *ngIf="loginSuccess">{{ loginSuccess }}</p>
+        </div>
+    </div>
+    </form>
+</body>
