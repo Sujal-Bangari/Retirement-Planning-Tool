@@ -1,0 +1,79 @@
+
+.add-goal-container {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    /* padding: 1px; */
+    /* background: rgb(15, 15, 15);  */
+    /* box-shadow: 0 4px 4px 4px rgba(135, 159, 164, 0.5); */
+    border-radius: 10px;
+    text-align: center;
+    color: white; 
+    transition: all 0.3s ease;
+}
+
+
+.add-goal-container h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #ffffff; 
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #ccc; 
+}
+
+
+input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #6a6f72;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-top: 5px;
+    background: #222; 
+    color: white; 
+}
+
+
+button {
+    margin-top: 15px;
+    padding: 10px;
+    font-size: 16px;
+    background: linear-gradient(to right, #ff416c, #ff4b2b); 
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+
+button:hover {
+    transform: translateY(3px);
+    box-shadow: 0 0 10px #ff416d65;
+    color: black;
+}
+
+button:disabled {
+    background: #6a6f72; /* ✅ Grey out background */
+    color: #aaa; /* ✅ Dim text color */
+    cursor: not-allowed; /* ✅ Show 'not-allowed' cursor */
+    box-shadow: none; /* ✅ Remove hover effects */
+    transform: none;
+    opacity: 0.6; /* ✅ Reduce visibility slightly */
+}
+
+
+
