@@ -1,0 +1,67 @@
+using System;
+using System.IO;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using retplann.Model;
+using retplann.Services;
+using retplann.Services.Interfaces;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
+
+namespace retplann.Controller
+{
+    [ApiController]
+    [Route("api/validate")] 
+    public class ValidateController : ControllerBase
+    {
+        private readonly IValidateService _validationService;
+        private readonly ILogger<ValidateController> _logger;
+        public ValidateController(IValidateService validationService, ILogger<ValidateController> logger){
+            _validationService=validationService;
+            _logger=logger;
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] Validate validate)
+        {
+            _logger.LogInformation("Recieved request to Login");
+             if (!ModelState.IsValid) // Check for validation errors
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ModelState); // Return error responses
+            }
+            try
+            {
+                var result = await _validationService.Validation(validate.Email, validate.Password);
+                if(result!=null)
+                {
+                    _logger.LogInformation("User Successfully Logged in");
+                    return StatusCode(StatusCodes.Status200OK, result);
+                    
+                }
+                else{
+                   _logger.LogError("Wrong Credentials!"); 
+                   return StatusCode(StatusCodes.Status400BadRequest, result);
+                   
+                }
+
+                //if(String.IsNullOrEmpty(result))
+                //return StatusCode(StatusCodes.Status200OK, new{message=result});
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("User Not Found :", ex.Message);
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+                
+            }
+        }
+
+    }
+
+    // public enum DBConstants{
+    //     0 = ""
+    // }
+}
+
