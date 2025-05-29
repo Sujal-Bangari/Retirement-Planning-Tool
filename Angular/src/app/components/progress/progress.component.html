@@ -1,0 +1,20 @@
+<div class="progress-container">
+    <h2>Savings Progress</h2>
+    
+    <div *ngIf="userSavings !== null">
+      <p><strong>Current Savings:</strong> ₹{{ userSavings }}</p>
+      <p><strong>Target Savings:</strong> ₹{{ targetSavings }}</p>
+      <p><strong>Goal Completion:</strong> {{ progressPercentage }}%</p>
+
+      <!-- Animated Progress Bar -->
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progressPercentage"></div>
+      </div>
+
+      <p class="progress-message">{{ message }}</p> <!-- Enthusiastic messages -->
+    </div>
+  
+    <div *ngIf="userSavings === null">
+      <p>Loading savings data...</p>
+    </div>
+</div>
